@@ -11,6 +11,7 @@ builder.Services.AddDbContext<SwiftBlogDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("SwiftBlogDbConnectionString")));
 
 builder.Services.AddScoped<ITagRepository, TagRepository>();
+builder.Services.AddScoped<IBlogPostRepository, BlogPostRepository>();
 
 var app = builder.Build();
 

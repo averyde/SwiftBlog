@@ -16,7 +16,7 @@
             <div class="container">
                 <div class="logo d-flex align-items-center">
                     <i style="margin-right: 7px;" class="bx bx-wind bx-sm text-light"></i>
-                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">SwiftBlog.Web</a>
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">SwiftBlog <span class="badge bg-success">.Web</span></a>
                 </div>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -34,6 +34,7 @@
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" asp-area="" asp-controller="AdminTags" asp-action="Add">Add Tag</a></li>
                                 <li><a class="dropdown-item" asp-area="" asp-controller="AdminTags" asp-action="List">Tag List</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="AdminBlogPosts" asp-action="Add">Add Blog Post</a></li>
                             </ul>
                         </li>
                     </ul>
