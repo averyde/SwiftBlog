@@ -1,0 +1,49 @@
+﻿@model List<SwiftBlog.Web.Models.Domain.Tag>
+@{
+    ViewData["Title"] = "Show All Tags";
+}
+
+<div class="bg-secondary bg-opacity-10 py-2">
+    <div class="container">
+        <h1>Show All Tags - Admin Only</h1>
+    </div>
+</div>
+
+<div class="container py-5">
+    @if (Model != null && Model.Any())
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Display Name</th>
+                    <th>Color</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var tag in Model)
+                {
+                    <tr>
+                        <td>@tag.Id</td>
+                        <td>@tag.Name</td>
+                        <td>@tag.DisplayName</td>
+                        <td style="background-color: @tag.Color">@tag.Color</td>
+                        <td>
+                            <a asp-area="" asp-controller="AdminTags" asp-action="Edit" asp-route-id="@tag.Id">Edit</a>
+                        </td>
+                        <td class="delete-icon">
+                            <a asp-area="" asp-controller="AdminTags" asp-action="Delete" asp-route-id="@tag.Id"><i style="margin-top: 4px; color: orangered" class='bx bxs-trash sm'></i></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p class="p-2">No tags found! <a asp-area="" asp-controller="AdminTags" asp-action="Add">Add Tags</a></p>
+    }
+</div>

@@ -4,25 +4,58 @@
     font-family: 'Roboto Mono', sans-serif;
 }
 
+/* TODO: Set scrollbar to overlay over page content */
+
+body {
+    margin-bottom: 60px;
+    overflow: hidden;
+}
+
 html {
-  font-size: 14px;
+    font-size: 12px;
+    overflow: auto;
+}
+
+.update-message {
+    font-size: 10px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
+
+    .update-message {
+        font-size: 14px;
+    }
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
-body {
-  margin-bottom: 60px;
+a {
+    text-decoration: none;
+}
+
+.software-icon {
+    width:26px;
+    height:26px;
+}
+
+@media (max-width: 1000px) {
+    .software-images {
+        display: none;
+    }
+}
+
+@media (min-width: 1000px) {
+    .software-images {
+        display: flex;
+    }
 }

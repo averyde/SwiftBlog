@@ -1,16 +1,21 @@
-﻿@model SwiftBlog.Web.Models.ViewModels.AddTagRequest
+﻿@model SwiftBlog.Web.Models.ViewModels.EditTagRequest
 @{
-    ViewData["Title"] = "Add New Tag";
+    ViewData["Title"] = "Edit Tag";
 }
 
 <div class="bg-secondary bg-opacity-10 py-2">
     <div class="container">
-		<h1>Add New Tag - Admin Only</h1>
+        <h1>Edit Tag - Admin Only</h1>
     </div>
 </div>
 
 <div class="container py-5">
     <form method="post">
+        <div class="mb-3">
+            <label class="form-label">Id</label>
+            <input type="text" id="id" class="form-control" asp-for="Id" autocomplete="off" readonly />
+        </div>
+
         <div class="mb-3">
             <label class="form-label">Name</label>
             <input type="text" class="form-control" id="name" asp-for="Name" autocomplete="off" />
@@ -35,8 +40,9 @@
         </div>
 
         <div class="mb-3">
-            <button type="submit" class="btn btn-dark">Submit</button>
+            <button type="submit" class="btn btn-dark">Update</button>
         </div>
+
     </form>
 </div>
 
