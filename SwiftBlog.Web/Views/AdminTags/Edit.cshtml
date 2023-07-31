@@ -10,40 +10,48 @@
 </div>
 
 <div class="container py-5">
-    <form method="post">
-        <div class="mb-3">
-            <label class="form-label">Id</label>
-            <input type="text" id="id" class="form-control" asp-for="Id" autocomplete="off" readonly />
-        </div>
 
-        <div class="mb-3">
-            <label class="form-label">Name</label>
-            <input type="text" class="form-control" id="name" asp-for="Name" autocomplete="off" />
-        </div>
+    @if (Model != null)
+    {
+        <form method="post">
+            <div class="mb-3">
+                <label class="form-label">Id</label>
+                <input type="text" id="id" class="form-control" asp-for="Id" autocomplete="off" readonly />
+            </div>
 
-        <div class="mb-3">
-            <label class="form-label">Display Name</label>
-            <input type="text" class="form-control" id="display-name" asp-for="DisplayName" autocomplete="off" />
-        </div>
+            <div class="mb-3">
+                <label class="form-label">Name</label>
+                <input type="text" class="form-control" id="name" asp-for="Name" autocomplete="off" />
+            </div>
 
-        <div class="mb-3">
-            <label class="form-label">Tag Color</label>
-            <select style="width: 75px" id="color-select" asp-for="Color">
-                <option value="#FFF" name="color" style="background-color: #FFF;"></option>
-                <option value="#FFB6C1" name="color" style="background-color: #FFB6C1;"></option>
-                <option value="#ADD8E6" name="color" style="background-color: #ADD8E6;"></option>
-                <option value="#98FB98" name="color" style="background-color: #98FB98;"></option>
-                <option value="#FFFFE0" name="color" style="background-color: #FFFFE0;"></option>
-                <option value="#E6E6FA" name="color" style="background-color: #E6E6FA;"></option>
-                <option value="#FFDAB9" name="color" style="background-color: #FFDAB9;"></option>
-            </select>
-        </div>
+            <div class="mb-3">
+                <label class="form-label">Display Name</label>
+                <input type="text" class="form-control" id="display-name" asp-for="DisplayName" autocomplete="off" />
+            </div>
 
-        <div class="mb-3">
-            <button type="submit" class="btn btn-dark">Update</button>
-        </div>
+            <div class="mb-3">
+                <label class="form-label">Tag Color</label>
+                <select style="width: 75px" id="color-select" asp-for="Color">
+                    <option value="#FFF" name="color" style="background-color: #FFF;"></option>
+                    <option value="#FFB6C1" name="color" style="background-color: #FFB6C1;"></option>
+                    <option value="#ADD8E6" name="color" style="background-color: #ADD8E6;"></option>
+                    <option value="#98FB98" name="color" style="background-color: #98FB98;"></option>
+                    <option value="#FFFFE0" name="color" style="background-color: #FFFFE0;"></option>
+                    <option value="#E6E6FA" name="color" style="background-color: #E6E6FA;"></option>
+                    <option value="#FFDAB9" name="color" style="background-color: #FFDAB9;"></option>
+                </select>
+            </div>
 
-    </form>
+            <div class="mb-3">
+                <button type="submit" class="btn btn-dark">Update</button>
+            </div>
+
+        </form>
+    } 
+    else
+    {
+        <p class="p-2">Tag not found.</p>
+    }
 </div>
 
 <script type="module" src="~/js/addTag.js" asp-append-version="true"></script>

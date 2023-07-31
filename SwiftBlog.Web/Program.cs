@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using SwiftBlog.Web.Data;
+using SwiftBlog.Web.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +9,8 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<SwiftBlogDbContext>(options => 
     options.UseSqlServer(builder.Configuration.GetConnectionString("SwiftBlogDbConnectionString")));
+
+builder.Services.AddScoped<ITagRepository, TagRepository>();
 
 var app = builder.Build();
 

@@ -1,17 +1,19 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SwiftBlog.Web.Data;
 using SwiftBlog.Web.Models.Domain;
 using SwiftBlog.Web.Models.ViewModels;
+using SwiftBlog.Web.Repositories;
 
 namespace SwiftBlog.Web.Controllers
 {
     public class AdminTagsController : Controller
     {
-        private readonly SwiftBlogDbContext _swiftBlogDbContext;
+        private readonly ITagRepository tagRepository;
 
-        public AdminTagsController(SwiftBlogDbContext swiftBlogDbContext)
+        public AdminTagsController(ITagRepository tagRepository)
         {
-            _swiftBlogDbContext = swiftBlogDbContext;
+            this.tagRepository = tagRepository;
         }
 
         [HttpGet]
@@ -21,7 +23,7 @@ namespace SwiftBlog.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add(AddTagRequest addTagRequest)
+        public async Task<IActionResult> Add(AddTagRequest addTagRequest)
         {
             // map AddTagRequest to Tag domain model
             var tag = new Tag
@@ -31,25 +33,24 @@ namespace SwiftBlog.Web.Controllers
                 Color = addTagRequest.Color,
             };
 
-            _swiftBlogDbContext.Tags.Add(tag);
-            _swiftBlogDbContext.SaveChanges();
+            await tagRepository.AddAsync(tag);
 
             return RedirectToAction("List");
         }
 
         [HttpGet]
-        public IActionResult List()
+        public async Task<IActionResult> List()
         {
             // use dbContext to read the tags
-            var tags = _swiftBlogDbContext.Tags.ToList();
+            var tags = await tagRepository.GetAllAsync();
 
             return View(tags);
         }
 
         [HttpGet]
-        public IActionResult Edit(Guid id) 
+        public async Task<IActionResult> Edit(Guid id) 
         {
-            var tag = _swiftBlogDbContext.Tags.FirstOrDefault(x => x.Id == id);
+            var tag = await tagRepository.GetAsync(id);
 
             if (tag != null)
             {
@@ -67,7 +68,7 @@ namespace SwiftBlog.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(EditTagRequest editTagRequest)
+        public async Task<IActionResult> Edit(EditTagRequest editTagRequest)
         {
             var tag = new Tag
             {
@@ -77,17 +78,11 @@ namespace SwiftBlog.Web.Controllers
                 Color = editTagRequest.Color,
             };
 
-            var existingTag = _swiftBlogDbContext.Tags.Find(tag.Id);
 
-            if (existingTag != null)
+            var updatedTag = await tagRepository.UpdateAsync(tag);
+
+            if (updatedTag != null)
             {
-                existingTag.Name = tag.Name;
-                existingTag.DisplayName = tag.DisplayName;
-                existingTag.Color = tag.Color;
-
-                _swiftBlogDbContext.SaveChanges();
-
-                // success
                 return RedirectToAction("Edit", new { id = editTagRequest.Id });
             }
 
@@ -95,14 +90,11 @@ namespace SwiftBlog.Web.Controllers
             return RedirectToAction("Edit", new { id = editTagRequest.Id });
         }
 
-        public IActionResult Delete(Guid id) {
-            var tag = _swiftBlogDbContext.Tags.Find(id);
-
-            if (tag != null)
+        public async Task<IActionResult> Delete(Guid id) 
+        {
+            var deletedTag = await tagRepository.DeleteAsync(id);
+            if (deletedTag != null)
             {
-                _swiftBlogDbContext.Tags.Remove(tag);
-                _swiftBlogDbContext.SaveChanges();
-
                 return RedirectToAction("List");
             }
 
