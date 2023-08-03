@@ -1,0 +1,45 @@
+﻿@model List<SwiftBlog.Web.Models.Domain.BlogPost>
+@{
+	ViewData["Title"] = "Show All Blog Posts";
+}
+
+<div class="bg-secondary bg-opacity-10 py-2">
+    <div class="container">
+        <h1>Show All Blog Posts - Admin Only</h1>
+    </div>
+</div>
+
+<div class="container py-5">
+    @if (Model != null && Model.Any())
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <td>Id</td>
+                    <td>Heading</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(var blogPost in Model)
+                {
+                    <tr>
+                        <td>@blogPost.Id</td>
+                        <td>@blogPost.Heading</td>
+                        <td>
+                            <a asp-area="" asp-controller="AdminBlogPosts" asp-action="Edit" asp-route-id="@blogPost.Id">Edit</a>
+                        </td>
+                        <td class="delete-icon">
+                            <a asp-area="" asp-controller="AdminBlogPosts" asp-action="Delete" asp-route-id="@blogPost.Id"><i style="margin-top: 4px; color: orangered" class='bx bxs-trash sm'></i></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p class="p-2">No posts found! <a asp-area="" asp-controller="AdminBlogPosts" asp-action="Add">Add post</a></p>
+    }
+</div>

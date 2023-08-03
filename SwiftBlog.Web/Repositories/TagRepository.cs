@@ -39,9 +39,9 @@ namespace SwiftBlog.Web.Repositories
             return await swiftBlogDbContext.Tags.ToListAsync();
         }
 
-        public Task<Tag?> GetAsync(Guid id)
+        public async Task<Tag?> GetAsync(Guid id)
         {
-            return swiftBlogDbContext.Tags.FirstOrDefaultAsync(x => x.Id == id);
+            return await swiftBlogDbContext.Tags.FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<Tag?> UpdateAsync(Tag tag)
@@ -52,6 +52,7 @@ namespace SwiftBlog.Web.Repositories
             {
                 existingTag.Name = tag.Name;
                 existingTag.DisplayName = tag.DisplayName;
+                existingTag.Color = tag.Color;
 
                 await swiftBlogDbContext.SaveChangesAsync();
 

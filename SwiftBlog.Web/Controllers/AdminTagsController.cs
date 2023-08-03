@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using SwiftBlog.Web.Data;
 using SwiftBlog.Web.Models.Domain;
 using SwiftBlog.Web.Models.ViewModels;
 using SwiftBlog.Web.Repositories;
@@ -78,7 +76,6 @@ namespace SwiftBlog.Web.Controllers
                 Color = editTagRequest.Color,
             };
 
-
             var updatedTag = await tagRepository.UpdateAsync(tag);
 
             if (updatedTag != null)
@@ -90,6 +87,7 @@ namespace SwiftBlog.Web.Controllers
             return RedirectToAction("Edit", new { id = editTagRequest.Id });
         }
 
+        [HttpGet]
         public async Task<IActionResult> Delete(Guid id) 
         {
             var deletedTag = await tagRepository.DeleteAsync(id);
