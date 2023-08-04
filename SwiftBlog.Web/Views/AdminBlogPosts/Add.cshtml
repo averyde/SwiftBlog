@@ -14,42 +14,42 @@
 
         <div class="mb-3">
             <label class="form-label">Heading</label>
-            <input type="text" class="form-control" id="heading" asp-for="Heading"/>
+            <input type="text" class="form-control required" id="heading" asp-for="Heading" />
         </div>
 
         <div class="mb-3">
             <label class="form-label">Page Title</label>
-            <input type="text" class="form-control" id="page-title" asp-for="PageTitle" />
+            <input type="text" class="form-control required" id="page-title" asp-for="PageTitle" />
         </div>
 
         <div class="mb-3">
             <label class="form-label">Content</label>
-            <textarea class="form-control" id="content" asp-for="Content"></textarea>
+            <textarea class="form-control required" id="content" asp-for="Content"></textarea>
         </div>
 
         <div class="mb-3">
             <label class="form-label">Short Description</label>
-            <input type="text" class="form-control" id="short-description" asp-for="ShortDescription" />
+            <input type="text" class="form-control required" id="short-description" asp-for="ShortDescription" />
         </div>
 
         <div class="mb-3">
             <label class="form-label">Featured Image URL</label>
-            <input type="text" class="form-control" id="featured-image-url" asp-for="FeaturedImageUrl" />
+            <input type="text" class="form-control required" id="featured-image-url" asp-for="FeaturedImageUrl" />
         </div>
 
         <div class="mb-3">
             <label class="form-label">URL Handle</label>
-            <input type="text" class="form-control" id="url-handle" asp-for="UrlHandle" />
+            <input type="text" class="form-control required" id="url-handle" asp-for="UrlHandle" />
         </div>
 
         <div class="mb-3">
             <label class="form-label">Published Date</label>
-            <input type="date" class="form-control" id="published-date" asp-for="PublishedDate" />
+            <input type="date" class="form-control required" id="published-date" value="2023-01-01" asp-for="PublishedDate" />
         </div>
 
         <div class="mb-3">
             <label class="form-label">Author</label>
-            <input type="text" class="form-control" id="author" asp-for="Author" />
+            <input type="text" class="form-control required" id="author" asp-for="Author" />
         </div>
 
         <div class="form-check mb-3">
@@ -74,3 +74,5 @@
 
     </form>
 </div>
+
+<script type="module" src="~/js/disableButton.js" asp-append-version="true"></script>

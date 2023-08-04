@@ -14,6 +14,7 @@
     @if (Model != null)
     {
         <form method="post">
+
             <div class="mb-3">
                 <label class="form-label">Id</label>
                 <input type="text" id="id" class="form-control" asp-for="Id" autocomplete="off" readonly />
@@ -21,24 +22,26 @@
 
             <div class="mb-3">
                 <label class="form-label">Name</label>
-                <input type="text" class="form-control" id="name" asp-for="Name" autocomplete="off" />
+                <input type="text" class="form-control required" id="name" asp-for="Name" autocomplete="off" />
             </div>
 
             <div class="mb-3">
                 <label class="form-label">Display Name</label>
-                <input type="text" class="form-control" id="display-name" asp-for="DisplayName" autocomplete="off" />
+                <input type="text" class="form-control required" id="display-name" asp-for="DisplayName" autocomplete="off" />
             </div>
 
             <div class="mb-3">
                 <label class="form-label">Tag Color</label>
                 <select style="width: 75px" id="color-select" asp-for="Color">
-                    <option value="#FFF" name="color" style="background-color: #FFF;"></option>
-                    <option value="#FFB6C1" name="color" style="background-color: #FFB6C1;"></option>
-                    <option value="#ADD8E6" name="color" style="background-color: #ADD8E6;"></option>
-                    <option value="#98FB98" name="color" style="background-color: #98FB98;"></option>
-                    <option value="#FFFFE0" name="color" style="background-color: #FFFFE0;"></option>
-                    <option value="#E6E6FA" name="color" style="background-color: #E6E6FA;"></option>
+                    <option value="#EBEBEB" name="color" style="background-color: #EBEBEB;"></option>
+                    <option value="#FFD1DC" name="color" style="background-color: #FFD1DC;"></option>
+                    <option value="#F09999" name="color" style="background-color: #F09999;"></option>
                     <option value="#FFDAB9" name="color" style="background-color: #FFDAB9;"></option>
+                    <option value="#FFFACD" name="color" style="background-color: #FFFACD;"></option>
+                    <option value="#C1E1C1" name="color" style="background-color: #C1E1C1;"></option>
+                    <option value="#D5F6FB" name="color" style="background-color: #D5F6FB;"></option>
+                    <option value="#ADD8E6" name="color" style="background-color: #ADD8E6;"></option>
+                    <option value="#C3B1E1" name="color" style="background-color: #C3B1E1;"></option>
                 </select>
             </div>
 
@@ -55,3 +58,4 @@
 </div>
 
 <script type="module" src="~/js/tag.js" asp-append-version="true"></script>
+<script type="module" src="~/js/disableButton.js" asp-append-version="true"></script>

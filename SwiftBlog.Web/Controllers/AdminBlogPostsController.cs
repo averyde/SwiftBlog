@@ -95,7 +95,8 @@ namespace SwiftBlog.Web.Controllers
                     PublishedDate = blogPost.PublishedDate,
                     Author = blogPost.Author,
                     Visible = blogPost.Visible,
-                    Tags = tags.Select(x => new SelectListItem { Text = x.DisplayName, Value = x.Id.ToString() })
+                    Tags = tags.Select(x => new SelectListItem { Text = x.DisplayName, Value = x.Id.ToString() }),
+                    SelectedTags = blogPost.Tags.Select(x => x.Id.ToString()).ToArray(),
                 };
 
                 return View(editBlogPostRequest);
