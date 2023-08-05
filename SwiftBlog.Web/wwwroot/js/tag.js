@@ -1,9 +1,9 @@
-function updateBackgroundColor() {
+async function updateBackgroundColor() {
     var selectedColor = $('#color-select').val();
     $('#color-select').css('background-color', selectedColor);
 }
 
-updateBackgroundColor();
+await updateBackgroundColor();
 
 $(document).ready(() => {
     $('#name').keypress((event) => {

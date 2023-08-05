@@ -1,4 +1,4 @@
-function checkForm() {
+async function checkForm() {
     var empty = false;
     $('form .required').each(function () {
         if ($(this).val() === "") {
@@ -10,7 +10,7 @@ function checkForm() {
     $('.btn').prop('disabled', empty);
 }
 
-checkForm();
+await checkForm();
 
 $(document).ready(() => {
     $('form .required').on('input', checkForm);
