@@ -1,0 +1,40 @@
+﻿@model SwiftBlog.Web.Models.Domain.BlogPost
+@{
+	ViewData["Title"] = (Model != null) ? Model.PageTitle : "Post not found";
+}
+
+
+<div class="container my-5">
+	<div class="row justify-content-center">
+		<div class="col-12 col-lg-6">
+
+			@if (Model != null)
+			{
+				<h1 class="mb-3">@Model.Heading</h1>
+
+				<div class="mb-3 d-flex justify-content-between ">
+					<span class="text-secondary">@Model.Author</span>
+					<span class="text-secondary">@Model.PublishedDate.ToShortDateString()</span>
+				</div>
+
+				<div class="mb-3 d-flex">
+					@foreach (var tag in Model.Tags)
+					{
+						<span class="badge me-1" style="background-color: @tag.Color; color: black; border: 1px solid #e3e3e3">@tag.DisplayName</span>
+					}
+				</div>
+
+				<img src="@Model.FeaturedImageUrl" class="d-block img-fluid mb-3 rounded-2" style="box-shadow: 0.3rem 0.3rem #808080, -0.3rem -0.3rem #ccc; width: 100%" />
+
+				<div class="mb-3 blog-content">
+					@Html.Raw(Model.Content)
+				</div>
+			}
+			else
+			{
+				<p>Post not found... Did something go wrong?</p>
+			}
+
+		</div>
+	</div>
+</div>

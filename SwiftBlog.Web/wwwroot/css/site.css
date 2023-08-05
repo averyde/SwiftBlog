@@ -59,3 +59,7 @@ a {
         display: flex;
     }
 }
+
+.blog-content img {
+    width:100%;
+}

@@ -18,7 +18,7 @@ namespace SwiftBlog.Web.Repositories
             );
         }
 
-        public async Task<string> UploadAsync(IFormFile file)
+        public async Task<string?> UploadAsync(IFormFile file)
         {
             var cloudinary = new Cloudinary(account);
             var uploadParams = new ImageUploadParams()
@@ -31,7 +31,7 @@ namespace SwiftBlog.Web.Repositories
 
             if (uploadResult != null && uploadResult.StatusCode == System.Net.HttpStatusCode.OK)
             {
-                return uploadResult.SecureUri.ToString();
+                return uploadResult.SecureUrl.ToString();
             }
 
             return null;

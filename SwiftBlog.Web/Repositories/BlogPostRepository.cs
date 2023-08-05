@@ -44,6 +44,11 @@ namespace SwiftBlog.Web.Repositories
             return await swiftBlogDbContext.BlogPosts.Include(x => x.Tags).FirstOrDefaultAsync(x => x.Id == id);
         }
 
+        public async Task<BlogPost?> GetByUrlHandleAsync(string urlHandle)
+        {
+            return await swiftBlogDbContext.BlogPosts.Include(x => x.Tags).FirstOrDefaultAsync(x => x.UrlHandle == urlHandle);
+        }
+
         public async Task<BlogPost?> UpdateAsync(BlogPost blogPost)
         {
             var existingBlogPost = await swiftBlogDbContext.BlogPosts.Include(x => x.Tags).FirstOrDefaultAsync(x => x.Id == blogPost.Id);

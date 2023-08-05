@@ -16,7 +16,7 @@
             <thead>
                 <tr>
                     <td>Id</td>
-                    <td>Heading</td>
+                    <td>Page Title</td>
                     <td>Tags</td>
                     <td></td>
                     <td></td>
@@ -27,14 +27,14 @@
                 {
                     <tr>
                         <td>@blogPost.Id</td>
-                        <td>@blogPost.Heading</td>
+                        <td>@blogPost.PageTitle</td>
                         <td>
                             @if (blogPost.Tags != null)
                             {
                                 <div class="d-flex">
                                     @foreach (var tag in blogPost.Tags)
                                     {
-                                        <span class="badge me-1" style="background-color: @tag.Color; color: black;">@tag.DisplayName</span>
+                                        <span class="badge me-1" style="background-color: @tag.Color; color: black; border: 1px solid #e3e3e3">@tag.DisplayName</span>
                                     }
                                 </div>
                             }
