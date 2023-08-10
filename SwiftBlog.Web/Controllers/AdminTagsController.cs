@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SwiftBlog.Web.Models.Domain;
 using SwiftBlog.Web.Models.ViewModels;
 using SwiftBlog.Web.Repositories;
 
 namespace SwiftBlog.Web.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AdminTagsController : Controller
     {
         private readonly ITagRepository tagRepository;
@@ -20,7 +22,7 @@ namespace SwiftBlog.Web.Controllers
             return View();
         }
 
-        [HttpPost]
+		[HttpPost]
         public async Task<IActionResult> Add(AddTagRequest addTagRequest)
         {
             // map AddTagRequest to Tag domain model
@@ -36,7 +38,7 @@ namespace SwiftBlog.Web.Controllers
             return RedirectToAction("List");
         }
 
-        [HttpGet]
+		[HttpGet]
         public async Task<IActionResult> List()
         {
             // use dbContext to read the tags
@@ -45,7 +47,7 @@ namespace SwiftBlog.Web.Controllers
             return View(tags);
         }
 
-        [HttpGet]
+		[HttpGet]
         public async Task<IActionResult> Edit(Guid id) 
         {
             var tag = await tagRepository.GetAsync(id);
@@ -65,7 +67,7 @@ namespace SwiftBlog.Web.Controllers
             return View(null);
         }
 
-        [HttpPost]
+		[HttpPost]
         public async Task<IActionResult> Edit(EditTagRequest editTagRequest)
         {
             var tag = new Tag
@@ -87,7 +89,7 @@ namespace SwiftBlog.Web.Controllers
             return RedirectToAction("Edit", new { id = editTagRequest.Id });
         }
 
-        [HttpGet]
+		[HttpGet]
         public async Task<IActionResult> Delete(Guid id) 
         {
             var deletedTag = await tagRepository.DeleteAsync(id);

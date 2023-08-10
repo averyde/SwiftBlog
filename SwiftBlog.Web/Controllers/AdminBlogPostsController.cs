@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using SwiftBlog.Web.Models.Domain;
 using SwiftBlog.Web.Models.ViewModels;
@@ -6,7 +7,8 @@ using SwiftBlog.Web.Repositories;
 
 namespace SwiftBlog.Web.Controllers
 {
-    public class AdminBlogPostsController : Controller
+	[Authorize(Roles = "Admin")]
+	public class AdminBlogPostsController : Controller
     {
         private readonly ITagRepository tagRepository;
         private readonly IBlogPostRepository blogPostRepository;

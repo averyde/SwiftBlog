@@ -34,9 +34,16 @@
 
         <div class="mb-3">
             <label class="form-label">Featured Image Upload</label>
-            <input type="file" id="featured-image-upload" class="form-control"/>
+            <input type="file" id="featured-image-upload" class="form-control mb-3"/>
 
-            <img src="" id="featured-image-display" style="display: none; width: 300px" />
+            @if (Model.FeaturedImageUrl != null)
+            {
+                <img class="img-fluid img-thumbnail rounded" src="@Model.FeaturedImageUrl" id="featured-image-display" style="display: block; width: 300px; border: 2px solid #D3D3D3" />
+            }
+            else
+            {
+                <img class="img-fluid img-thumbnail rounded" src="" id="featured-image-display" style="display: none; width: 300px; border: 2px solid #D3D3D3" />
+            }
         </div>
 
         <div class="mb-3">
