@@ -2,7 +2,7 @@
 
 namespace SwiftBlog.Web.Repositories
 {
-	public interface IBlogPostLikeRepository
+	public interface ILikeRepository
 	{
 		Task<int> GetTotalLikes(Guid blogPostId);
 

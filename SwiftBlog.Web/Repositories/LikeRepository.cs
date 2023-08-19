@@ -4,11 +4,11 @@ using SwiftBlog.Web.Models.Domain;
 
 namespace SwiftBlog.Web.Repositories
 {
-	public class BlogPostLikeRepository : IBlogPostLikeRepository
+	public class LikeRepository : ILikeRepository
 	{
 		private readonly SwiftBlogDbContext swiftBlogDbContext;
 
-		public BlogPostLikeRepository(SwiftBlogDbContext swiftBlogDbContext)
+		public LikeRepository(SwiftBlogDbContext swiftBlogDbContext)
 		{
 			this.swiftBlogDbContext = swiftBlogDbContext;
 		}

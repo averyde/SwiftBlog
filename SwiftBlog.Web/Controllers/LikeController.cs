@@ -7,13 +7,13 @@ namespace SwiftBlog.Web.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
-	public class BlogPostLikeController : ControllerBase
+	public class LikeController : ControllerBase
 	{
-		private readonly IBlogPostLikeRepository blogPostLikeRepository;
+		private readonly ILikeRepository likeRepository;
 
-		public BlogPostLikeController(IBlogPostLikeRepository blogPostLikeRepository)
+		public LikeController(ILikeRepository likeRepository)
         {
-			this.blogPostLikeRepository = blogPostLikeRepository;
+			this.likeRepository = likeRepository;
 		}
 
         [HttpPost]
@@ -26,7 +26,7 @@ namespace SwiftBlog.Web.Controllers
 				UserId = addLikeRequest.UserId
 			};
 
-			await blogPostLikeRepository.AddLikeToBlog(model);
+			await likeRepository.AddLikeToBlog(model);
 
 			return Ok();
 		}
@@ -35,7 +35,7 @@ namespace SwiftBlog.Web.Controllers
 		[Route("{blogPostId:Guid}/totalLikes")]
 		public async Task<IActionResult> GetTotalLikesForBlog([FromRoute] Guid blogPostId)
 		{
-			var totalLikes = await blogPostLikeRepository.GetTotalLikes(blogPostId);
+			var totalLikes = await likeRepository.GetTotalLikes(blogPostId);
 
 			return Ok(totalLikes);
 		}

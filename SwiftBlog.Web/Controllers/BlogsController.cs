@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
+using SwiftBlog.Web.Models.Domain;
 using SwiftBlog.Web.Models.ViewModels;
 using SwiftBlog.Web.Repositories;
 
@@ -8,16 +10,22 @@ namespace SwiftBlog.Web.Controllers
     public class BlogsController : Controller
     {
         private readonly IBlogPostRepository blogPostRepository;
-		private readonly IBlogPostLikeRepository likeRepository;
+		private readonly ILikeRepository likeRepository;
 		private readonly SignInManager<IdentityUser> signInManager;
 		private readonly UserManager<IdentityUser> userManager;
+		private readonly ICommentRepository commentRepository;
 
-		public BlogsController(IBlogPostRepository blogPostRepository, IBlogPostLikeRepository likeRepository, SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager)
+		public BlogsController(IBlogPostRepository blogPostRepository, 
+			ILikeRepository likeRepository, 
+			SignInManager<IdentityUser> signInManager, 
+			UserManager<IdentityUser> userManager,
+			ICommentRepository commentRepository)
         {
             this.blogPostRepository = blogPostRepository;
 			this.likeRepository = likeRepository;
 			this.signInManager = signInManager;
 			this.userManager = userManager;
+			this.commentRepository = commentRepository;
 		}
 
         [HttpGet]
@@ -44,6 +52,20 @@ namespace SwiftBlog.Web.Controllers
 					}
 				}
 
+				var comments = await commentRepository.GetAllAsync(blogPost.Id);
+
+				var commentsForView = new List<BlogPostComment>();
+
+				foreach (var comment in comments) 
+				{
+					commentsForView.Add(new BlogPostComment
+					{
+						Description = comment.Description,
+						DateAdded = comment.DateAdded,
+						Username = (await userManager.FindByIdAsync(comment.UserId.ToString())).UserName
+					});
+				}
+
 				blogDetailsViewModel = new BlogDetailsViewModel
 				{
 					Id = blogPost.Id,
@@ -58,7 +80,8 @@ namespace SwiftBlog.Web.Controllers
 					Visible = blogPost.Visible,
 					Tags = blogPost.Tags,
 					TotalLikes = totalLikes,
-					Liked = liked
+					Liked = liked,
+					Comments = commentsForView
 				};
 
 				return View(blogDetailsViewModel);
@@ -66,5 +89,25 @@ namespace SwiftBlog.Web.Controllers
 
             return View(blogDetailsViewModel);
         }
+
+		[HttpPost]
+		public async Task<IActionResult> Index(BlogDetailsViewModel blogDetailsViewModel)
+		{
+			if (signInManager.IsSignedIn(User))
+			{
+				var domainModel = new Comment
+				{
+					BlogPostId = blogDetailsViewModel.Id,
+					Description = blogDetailsViewModel.CommentDescription,
+					UserId = Guid.Parse(userManager.GetUserId(User)),
+					DateAdded = DateTime.Now
+				};
+
+				await commentRepository.AddAsync(domainModel);
+				return RedirectToAction("Index", "Blogs", new { urlHandle = blogDetailsViewModel.UrlHandle });
+			}
+
+			return Forbid();
+		}
     }
 }
