@@ -1,4 +1,8 @@
-﻿@model SwiftBlog.Web.Models.Domain.BlogPost
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> signInManager
+@inject UserManager<IdentityUser> userManager
+
+@model SwiftBlog.Web.Models.ViewModels.BlogDetailsViewModel
 @{
 	ViewData["Title"] = (Model != null) ? Model.PageTitle : "Post not found";
 }
@@ -17,7 +21,16 @@
 					<span class="text-secondary">@Model.PublishedDate.ToShortDateString()</span>
 				</div>
 
-				<div class="mb-3"></div>
+				<div class="mb-3">
+					@if (signInManager.IsSignedIn(User))
+					{
+						<button class="btn like-button d-flex align-items-center gap-2" style="cursor: pointer; width: 60px;" disabled>
+							<i class="bx bxs-heart bx-xs"></i>
+							<span class="like-num">@Model.TotalLikes</span>
+						</button>
+
+					}
+				</div>
 
 				<div class="mb-3 d-flex">
 					@foreach (var tag in Model.Tags)
@@ -40,3 +53,57 @@
 		</div>
 	</div>
 </div>
+
+@section Scripts {
+	<script>
+		async function disableButton() {
+			$('.like-button').prop('disabled', true);
+			$('.like-button').css('transition-property', 'all');
+			$('.like-button').css('transition', '0.5s');
+			$('.like-button').css('background-color', '#eee');
+			$('.like-button').css('color', 'indianred');
+		}
+
+		async function enableButton() {
+			$('.like-button').prop('disabled', false);
+			$('.like-button').css('background-color', 'indianred');
+			$('.like-button').css('color', '#eee');
+		}
+
+		async function getTotalLikes() {
+			fetch('/api/BlogPostLike/@Model.Id/totalLikes', {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+					'Accept': '*/*'
+				}
+			}).then(data => data.json())
+			.then(result => {
+				$('.like-num').text(result);
+			});
+		}
+
+		async function addLikeToBlog() {
+			fetch('/api/BlogPostLike/Add', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					'Accept': '*/*',
+				},
+				body: JSON.stringify({
+					blogPostId: '@Model.Id',
+					userId: '@userManager.GetUserId(User)'
+				})
+			}).then(() => {
+				getTotalLikes();
+				disableButton();
+			});
+		}
+
+		$(document).ready(() => {
+			$('.like-button').click(addLikeToBlog);
+			'@Model.Liked' == 'True' ? disableButton() : enableButton();
+			getTotalLikes();
+		});
+	</script>
+}
