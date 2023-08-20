@@ -34,21 +34,38 @@
 					@Html.Raw(Model.Content)
 				</div>
 
-				@if (signInManager.IsSignedIn(User))
-				{
-					<div class="mb-3 d-flex justify-content-center">
-						<button class="btn like-button d-flex align-items-center gap-2" style="cursor: pointer; width: 60px; color: indianred; background-color: #eee" disabled>
+				<div class="mb-3 d-flex justify-content-center">
+					@if (signInManager.IsSignedIn(User))
+					{
+						<button class="btn like-button d-flex align-items-center gap-2" 
+								style="cursor: pointer; width: 60px; color: indianred; background-color: #eee"
+								data-toggle="tooltip"
+								data-placement="bottom"
+								title="@(Model.Liked ? "Liked!" : "Sign in to Like Post")"
+								disabled>
 							<i class="bx bxs-heart bx-xs"></i>
 							<span class="like-num">@Model.TotalLikes</span>
 						</button>
-					</div>
-				}
+					} 
+					else
+					{
+						<button class="btn d-flex align-items-center gap-2" 
+								style="cursor: pointer; width: 60px; color: indianred; background-color: #eee"
+								data-toggle="tooltip" 
+								data-placement="bottom" 
+								title="Sign in to Like Post" 
+								disabled>
+							<i class="bx bx-heart bx-xs"></i>
+							<span class="like-num">@Model.TotalLikes</span>
+						</button>
+					}
+				</div>
 
 				<div class="my-4 d-flex justify-content-center">
 					<i class="bx bx-dots-horizontal-rounded bx-md" style="color: #ccc"></i>
 				</div>
 
-				<div class="card">
+				<div class="card" style="box-shadow: 0.3rem 0.3rem #808080, -0.3rem -0.3rem #ccc">
 					<div class="card-header py-3">
 
 						<h4 class="d-flex align-items-center gap-3">
@@ -134,7 +151,7 @@
 		}
 
 		async function getTotalLikes() {
-			fetch('/api/BlogPostLike/@Model.Id/totalLikes', {
+			fetch('/api/Like/@Model.Id/totalLikes', {
 				method: 'GET',
 				headers: {
 					'Content-Type': 'application/json',
@@ -147,7 +164,7 @@
 		}
 
 		async function addLikeToBlog() {
-			fetch('/api/BlogPostLike/Add', {
+			fetch('/api/Like/Add', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
@@ -167,6 +184,8 @@
 			$('.like-button').click(addLikeToBlog);
 			'@Model.Liked' == 'True' ? disableButton() : enableButton();
 			getTotalLikes();
+
+			$('[data-toggle="tooltip"]').tooltip();
 		});
 	</script>
 }

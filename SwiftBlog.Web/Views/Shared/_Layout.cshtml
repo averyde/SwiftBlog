@@ -17,12 +17,16 @@
 
 </head>
 <body>
-    <header class="shadow-md">
+    <header class="fixed-top shadow-md border-bottom">
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow">
             <div class="container">
-                <div class="logo d-flex align-items-center">
-                    <i style="margin-right: 7px;" class="bx bx-wind bx-sm text-light"></i>
-                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">SwiftBlog <span class="badge bg-success">.Web</span></a>
+                <div class="logo">
+					<a class="navbar-brand d-flex gap-2 align-items-center" asp-area="" asp-controller="Home" asp-action="Index">
+						<i class="bx bx-wind bx-sm text-light"></i>
+                        <span>SwiftBlog</span>
+                        <span class="badge bg-success">.Web</span>
+                        <span class="badge bg-danger beta-icon">&#60;Beta /&#62;</span>
+                    </a>
                 </div>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -45,6 +49,7 @@
 								    <li><a class="dropdown-item" asp-area="" asp-controller="AdminTags" asp-action="List">Tag List</a></li>
 								    <li><a class="dropdown-item" asp-area="" asp-controller="AdminBlogPosts" asp-action="Add">Add Blog Post</a></li>
 								    <li><a class="dropdown-item" asp-area="" asp-controller="AdminBlogPosts" asp-action="List">Blog Post List</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="AdminUsers" asp-action="List">User List</a></li>
 							    </ul>
 						    </li>
                         }
@@ -69,20 +74,24 @@
                         }
                     </div>
 
+                    <div class="d-flex align-items-center gap-2">
+                        <a class="btn text-light"><i class='bx bxs-sun bx-sm'></i></a>
+                    </div>
+
                 </div>
             </div>
         </nav>
     </header>
     <div >
-        <main role="main" class="pb-3">
+        <main role="main" class="py-5">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+	<footer class="footer border-top text-muted position-fixed fixed-bottom bg-light ">
         <div class="container d-flex justify-content-between align-items-center">
             <span class="copyright-container align-items-center">
-                SwiftBlog &copy; 2023 - Avery Deemer 
+                SwiftBlog.Web Beta &copy; 2023 - Avery Deemer 
                 <a href="https://github.com/averyde"><i class="bx bxl-github bx-xs"></i></a>
                 <a href="https://www.linkedin.com/in/avery-d-5457a712b/"><i class="bx bxl-linkedin-square bx-xs"></i></a> -
                 <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy Policy</a>
@@ -99,6 +108,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/darkMode.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
