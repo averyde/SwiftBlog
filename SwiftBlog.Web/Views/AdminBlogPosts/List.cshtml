@@ -44,10 +44,30 @@
                             }
                         </td>
                         <td>
-                            <a asp-area="" asp-controller="AdminBlogPosts" asp-action="Edit" asp-route-id="@blogPost.Id">Edit</a>
+                            <a asp-area="" asp-controller="AdminBlogPosts" asp-action="Edit" asp-route-id="@blogPost.Id"><i style="margin-top: 4px; cursor: pointer" class="bx bxs-pencil sm"></i></a>
                         </td>
                         <td class="delete-icon">
-                            <a asp-area="" asp-controller="AdminBlogPosts" asp-action="Delete" asp-route-id="@blogPost.Id"><i style="margin-top: 4px; color: orangered" class='bx bxs-trash sm'></i></a>
+                            <a data-bs-toggle="modal" data-bs-target="#@blogPost.UrlHandle" class="delete-icon"><i style="margin-top: 4px; color: orangered; cursor: pointer" class="bx bxs-trash sm"></i></a>
+
+                            <div class="modal fade" id="@blogPost.UrlHandle" tabindex="-1" role="dialog" aria-labelledby="deleteBlogPostModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h2 class="modal-title" id="deleteBlogPostModalLabel">Delete Blog Post</h2>
+                                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Are you sure you want to delete this post?</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                            <a type="submit" class="btn btn-danger" asp-area="" asp-controller="AdminBlogPosts" asp-action="Delete" asp-route-id="@blogPost.Id">Delete</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </td>
                     </tr>
                 }

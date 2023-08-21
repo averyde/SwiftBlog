@@ -62,7 +62,7 @@
                         @if (signInManager.IsSignedIn(User))
                         {
                             <div class="me-3 text-light">
-                                <span>Welcome back, <strong>@User?.Identity?.Name</strong>!</span>
+								<span>Welcome back, <a asp-area="" asp-controller="Account" asp-action="Index" style="color: #fff"><strong>@User?.Identity?.Name</strong></a>!</span>
                             </div>
 
                             <a class="btn me-3 bg-light text-dark" asp-area="" asp-controller="Account" asp-action="Logout">Log Out</a>

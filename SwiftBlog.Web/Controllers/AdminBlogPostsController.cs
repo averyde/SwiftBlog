@@ -143,7 +143,7 @@ namespace SwiftBlog.Web.Controllers
 
             if (updatedBlogPost != null)
             {
-                return RedirectToAction("Edit", new { id = editBlogPostRequest.Id });
+                return RedirectToAction("List");
             }
 
             return RedirectToAction("Edit", new { id = editBlogPostRequest.Id });

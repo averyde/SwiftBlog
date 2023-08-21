@@ -36,7 +36,27 @@
                         <td>@user.Username</td>
                         <td>@user.Email</td>
                         <td class="delete-icon">
-                            <a asp-area="" asp-controller="AdminUsers" asp-action="Delete" asp-route-id="@user.Id"><i style="margin-top: 4px; color: orangered" class="bx bxs-trash sm"></i></a>
+                            <a data-bs-toggle="modal" data-bs-target="#@user.Username" class="delete-icon"><i style="margin-top: 4px; color: orangered; cursor: pointer" class="bx bxs-trash sm"></i></a>
+
+                            <div class="modal fade" id="@user.Username" tabindex="-1" role="dialog" aria-labelledby="deleteuserModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h2 class="modal-title" id="deleteUserModalLabel">Delete User</h2>
+                                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Are you sure you want to delete this user?</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                            <a type="submit" class="btn btn-danger" asp-area="" asp-controller="AdminUsers" asp-action="Delete" asp-route-id="@user.Id">Delete</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </td>
                     </tr>
                 }
@@ -54,7 +74,7 @@
         <div class="modal-content">
             <form method="post">
                 <div class="modal-header">
-                    <h1 class="modal-title" id="createUserModalLabel">Create New User</h1>
+                    <h2 class="modal-title" id="createUserModalLabel">Create New User</h2>
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

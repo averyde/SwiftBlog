@@ -87,7 +87,7 @@ namespace SwiftBlog.Web.Controllers
 
             if (updatedTag != null)
             {
-                return RedirectToAction("Edit", new { id = editTagRequest.Id });
+                return RedirectToAction("List");
             }
 
             // fail
