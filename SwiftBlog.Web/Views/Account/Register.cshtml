@@ -14,17 +14,20 @@
 
 				<div class="mb-3">
 					<label class="form-label">Username</label>
-					<input type="text" id="username" class="form-control" asp-for="Username" />
+					<input type="text" id="username" class="form-control required" asp-for="Username" required />
+					<span class="text-danger" asp-validation-for="Username"></span>
 				</div>
 
 				<div class="mb-3">
 					<label class="form-label">Email</label>
-					<input type="email" id="email" class="form-control" asp-for="Email" />
+					<input type="email" id="email" class="form-control required" asp-for="Email" required />
+					<span class="text-danger" asp-validation-for="Email"></span>
 				</div>
 
 				<div class="mb-3">
 					<label class="form-label">Password</label>
-					<input type="password" id="password" class="form-control" asp-for="Password" />
+					<input type="password" id="password" class="form-control required" asp-for="Password" required minglength="6" />
+					<span class="text-danger" asp-validation-for="Password"></span>
 				</div>
 
 				<div class="mb-3">
@@ -35,3 +38,7 @@
 		</div>
 	</div>
 </div>
+
+@section Scripts {
+	<script type="module" src="~/js/disableButton.js" asp-append-version="true"></script>
+}

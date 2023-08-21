@@ -25,6 +25,11 @@ namespace SwiftBlog.Web.Controllers
 		[HttpPost]
         public async Task<IActionResult> Add(AddTagRequest addTagRequest)
         {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
             // map AddTagRequest to Tag domain model
             var tag = new Tag
             {

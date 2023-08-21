@@ -35,6 +35,7 @@ namespace SwiftBlog.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(AddBlogPostRequest addBlogPostRequest)
         {
+
             // map view model to domain model
             var blogPost = new BlogPost
             {
