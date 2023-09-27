@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SwiftBlog.Web.Models.ViewModels;
+using SwiftBlog.Web.Repositories;
 
 namespace SwiftBlog.Web.Controllers
 {
@@ -9,11 +10,31 @@ namespace SwiftBlog.Web.Controllers
 		private readonly UserManager<IdentityUser> userManager;
 		private readonly SignInManager<IdentityUser> signInManager;
 
-		public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
         {
 			this.userManager = userManager;
 			this.signInManager = signInManager;
-		}
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Index(Guid id)
+        {
+            var user = await userManager.FindByIdAsync(id.ToString());
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var userViewModel = new User
+            {
+                Id = id,
+                Username = user.UserName,
+                Email = user.Email
+            };
+
+            return View(userViewModel);
+        }
 
         [HttpGet]
         public IActionResult Register()

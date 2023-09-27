@@ -1,0 +1,42 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using SwiftBlog.Web.Models.Domain;
+@inject SignInManager<IdentityUser> signInManager
+@inject UserManager<IdentityUser> userManager
+
+@model SwiftBlog.Web.Models.ViewModels.User
+@{
+	ViewData["Title"] = (Model != null) ? Model.Username + "'s Account" : "Account not found";
+}
+
+<div class="container my-5">
+	<div class="row justify-content-center">
+		<div class="col-12 col-lg-6">
+
+			@if (Model != null)
+			{
+				<h1 class="mb-3 d-flex align-items-center gap-3">
+					@if (User.IsInRole("SuperAdmin"))
+					{
+						<i class="bx bxs-wrench"></i>
+					}
+					else if (User.IsInRole("Admin"))
+					{
+						<i class="bx bxs-user-circle"></i>
+					}
+					else
+					{
+						<i class="bx bxs-user"></i>
+					}
+					<span>@Model.Username</span>
+				</h1>
+
+				<p>@Model.Email</p>
+			}
+			else
+			{
+				<p>User not found...</p>
+			}
+
+		</div>
+	</div>
+</div>

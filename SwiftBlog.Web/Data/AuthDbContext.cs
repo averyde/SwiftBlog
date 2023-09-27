@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using SwiftBlog.Web.Models.Domain;
 
 namespace SwiftBlog.Web.Data
 {
-    public class AuthDbContext : IdentityDbContext
+    public class AuthDbContext : IdentityDbContext<User>
     {
         public AuthDbContext(DbContextOptions<AuthDbContext> options) : base(options)
         {
